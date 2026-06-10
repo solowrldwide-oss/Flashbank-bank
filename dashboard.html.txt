@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body onload="checkLogin()">
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <h2>NeoBank</h2>
+
+  <a href="dashboard.html">🏠 Dashboard</a>
+  <a href="transfer.html">💸 Transfer</a>
+  <a href="transactions.html">📊 Transactions</a>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <div class="header">
+    <h1>Hi there, Thane! 👋</h1>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <!-- BALANCE CARD -->
+  <div class="card">
+    <h3>Available Balance</h3>
+
+    <p class="balance" id="balance">$250,000,000.00</p>
+
+    <div class="row">
+      <button class="small-btn" onclick="toggleBalance()">👁 Hide/Show</button>
+      <button class="small-btn" onclick="copyAcc()">📋 Copy Account</button>
+    </div>
+  </div>
+
+  <!-- ACCOUNT INFO -->
+  <div class="grid" style="margin-top:20px;">
+    
+    <div class="card">
+      <h3>Account Number</h3>
+      <p id="accNum">7963064085</p>
+    </div>
+
+    <div class="card">
+      <h3>Account Type</h3>
+      <p>Savings</p>
+    </div>
+
+    <div class="card">
+      <h3>Status</h3>
+      <p style="color:#22c55e;">Active</p>
+    </div>
+  </div>
+
+  <!-- ACTION CARDS -->
+  <div class="grid" style="margin-top:20px;">
+
+    <div class="card" onclick="go('transfer.html')">
+      <h3>💸 Send Money</h3>
+      <p>Transfer funds</p>
+    </div>
+
+    <div class="card" onclick="go('transactions.html')">
+      <h3>📊 History</h3>
+      <p>View activity</p>
+    </div>
+
+    <div class="card">
+      <h3>💳 Cards</h3>
+      <p>Manage cards</p>
+    </div>
+
+    <div class="card">
+      <h3>⚙ Settings</h3>
+      <p>Account settings</p>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+function checkLogin() {
+  if (sessionStorage.getItem("loggedIn") !== "true") {
+    window.location.href = "index.html";
+  }
+}
+
+let hidden = false;
+function toggleBalance() {
+  const bal = document.getElementById("balance");
+  hidden = !hidden;
+
+  bal.innerText = hidden ? "******" : "$250,000,000.00";
+}
+
+function copyAcc() {
+  const acc = document.getElementById("accNum").innerText;
+  navigator.clipboard.writeText(acc);
+  alert("Account number copied!");
+}
+
+function go(page) {
+  window.location.href = page;
+}
+
+function logout() {
+  sessionStorage.removeItem("loggedIn");
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>

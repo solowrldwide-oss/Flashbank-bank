@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Transactions</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body onload="checkLogin()">
+
+<div class="sidebar">
+  <h2>NeoBank</h2>
+
+  <a href="dashboard.html">🏠 Dashboard</a>
+  <a href="transfer.html">💸 Transfer</a>
+  <a href="transactions.html">📊 Transactions</a>
+</div>
+
+<div class="main">
+
+  <div class="header">
+    <h1>Transaction History 📊</h1>
+    <button onclick="goBack()">Back</button>
+  </div>
+
+  <div class="card">
+
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Details</th>
+          <th>Amount</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+
+      <tbody id="txBody">
+        <!-- JS will inject rows -->
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+<script>
+function checkLogin() {
+  if (sessionStorage.getItem("loggedIn") !== "true") {
+    window.location.href = "index.html";
+  }
+}
+
+function goBack() {
+  window.location.href = "dashboard.html";
+}
+
+// FAKE TRANSACTIONS DATA
+const transactions = [
+  { type: "Credit", details: "Salary Deposit", amount: "+$5,000,000", date: "2026-06-01" },
+  { type: "Debit", details: "Transfer to 7963064085", amount: "-$250,000", date: "2026-06-02" },
+  { type: "Credit", details: "Investment Return", amount: "+$1,200,000", date: "2026-06-03" },
+  { type: "Debit", details: "Online Purchase", amount: "-$45,000", date: "2026-06-04" },
+  { type: "Credit", details: "Bonus Payment", amount: "+$3,500,000", date: "2026-06-05" }
+];
+
+const tbody = document.getElementById("txBody");
+
+transactions.forEach(tx => {
+  const row = `
+    <tr>
+      <td style="color:${tx.type === "Credit" ? "#22c55e" : "#ef4444"}">
+        ${tx.type}
+      </td>
+      <td>${tx.details}</td>
+      <td>${tx.amount}</td>
+      <td>${tx.date}</td>
+    </tr>
+  `;
+  tbody.innerHTML += row;
+});
+</script>
+
+</body>
+</html>

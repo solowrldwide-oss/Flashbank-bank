@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Secure Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="auth-container">
+  <div class="auth-box">
+    
+    <h1>Welcome Back</h1>
+    <p>Sign in to continue to your account</p>
+
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+
+    <button onclick="login()">Login</button>
+
+    <p id="error" style="color: #ef4444; margin-top:10px;"></p>
+  </div>
+</div>
+
+<script>
+function login() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const correctEmail = "theethanerivers@gmail.com";
+  const correctPassword = "Incredibleman";
+
+  if (email === correctEmail && password === correctPassword) {
+    sessionStorage.setItem("loggedIn", "true");
+    window.location.href = "dashboard.html";
+  } else {
+    document.getElementById("error").innerText = "Invalid credentials. Try again.";
+  }
+}
+</script>
+
+</body>
+</html>

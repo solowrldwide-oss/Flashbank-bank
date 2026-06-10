@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Transfer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body onload="checkLogin()">
+
+<div class="sidebar">
+  <h2>NeoBank</h2>
+
+  <a href="dashboard.html">🏠 Dashboard</a>
+  <a href="transfer.html">💸 Transfer</a>
+  <a href="transactions.html">📊 Transactions</a>
+</div>
+
+<div class="main">
+
+  <div class="header">
+    <h1>Send Money 💸</h1>
+    <button onclick="goBack()">Back</button>
+  </div>
+
+  <!-- TRANSFER FORM -->
+  <div class="card">
+
+    <h3>Recipient Account</h3>
+    <input type="text" id="acc" placeholder="Enter account number">
+
+    <h3>Amount</h3>
+    <input type="number" id="amount" placeholder="Enter amount">
+
+    <button onclick="lookup()">Continue</button>
+
+    <p id="status" style="margin-top:10px; color:#9fb0d0;"></p>
+
+  </div>
+
+  <!-- RECEIPT -->
+  <div class="receipt" id="receipt" style="display:none; margin-top:20px;">
+    <h2 style="color:#22c55e;">Transfer Successful 🎉</h2>
+    <p id="receiptText"></p>
+  </div>
+
+</div>
+
+<script>
+function checkLogin() {
+  if (sessionStorage.getItem("loggedIn") !== "true") {
+    window.location.href = "index.html";
+  }
+}
+
+function lookup() {
+  const acc = document.getElementById("acc").value;
+  const amount = document.getElementById("amount").value;
+
+  if (!acc || !amount) {
+    document.getElementById("status").innerText = "Fill all fields first.";
+    return;
+  }
+
+  document.getElementById("status").innerText = "Verifying account...";
+
+  setTimeout(() => {
+    document.getElementById("status").innerText = "Account verified ✔ Processing transfer...";
+
+    setTimeout(() => {
+      showReceipt(acc, amount);
+    }, 1500);
+
+  }, 1500);
+}
+
+function showReceipt(acc, amount) {
+  document.getElementById("receipt").style.display = "block";
+
+  document.getElementById("receiptText").innerText =
+    `You sent $${amount} to account ${acc}. Transaction ID: TXN${Math.floor(Math.random()*99999999)}`;
+}
+
+function goBack() {
+  window.location.href = "dashboard.html";
+}
+</script>
+
+</body>
+</html>
